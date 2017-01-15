@@ -36,7 +36,7 @@ var Group = mongoose.model('Group', groupsSchema)
 var Message = mongoose.model('Message', messagesSchema);
 
 var settings = {
-    token: 'xoxb-127038972225-bKrkDkvAmDkw6lBYTctERGwv',
+    token: 'xoxb-127038972225-1i0ggTtlnbLDfgI1fWZqUmUv',
     name: 'smart-watch'
 };
 var bot = new Bot(settings);

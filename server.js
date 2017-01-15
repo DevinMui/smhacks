@@ -81,13 +81,39 @@ bot.on('message', function(data){
 					groupId: data.channel,
 					color: "red"
 				}).save(function(err, group){
-					new Message({
-						groupId: group.groupId,
-						text: data.text,
-						user: data.user,
-						color: group.color
-					}).save()
+				tone_analyzer.tone({ text: data.text }, function(err, tone) {
+				    if (err)
+				    	console.log(err);
+				    else {
+				      	var tones = tone["document_tone"]["tone_categories"][0]["tones"]
+				     	var high = 0
+				     	var index = 0
+				     	for(var i=0;i<tones.length;i++){
+				     		if(tones[i]["score"] > high){
+				     			index = i
+				     			high = tones[i]["score"]
+				     		}
+				     	}
+				     	var t = null
+				     	if(tones[index]["tone_id"] === "anger" || tones[index]["tone_id"] === "disgust" || tones[index]["tone_id"] === "fear" || tones[index]["tone_id"] === "sadness"){
+				     		// tone = bad
+				     		console.log("bad")
+				     		t = "bad"
+				     	} else {
+				     		// tone = good
+				     		console.log("good")
+				     		t = "good"
+				     	}
+				     	new Message({
+							groupId: group.groupId,
+							text: data.text,
+							user: data.user,
+							color: group.color,
+							tone: t
+						}).save()
+				    }
 				})
+			})
 			} else {
 				tone_analyzer.tone({ text: data.text }, // get tone of text
 				function(err, tone) {

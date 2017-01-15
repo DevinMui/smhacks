@@ -89,7 +89,7 @@ bot.on('message', function(data){
 					}).save()
 				})
 			} else {
-				tone_analyzer.tone({ text: "you are amazing!" }, // get tone of text
+				tone_analyzer.tone({ text: data.text }, // get tone of text
 				function(err, tone) {
 				    if (err)
 				    	console.log(err);

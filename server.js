@@ -5,8 +5,10 @@ var mongoose = require("mongoose")
 var morse = require('morse')
 var secret = require('./secret.js')
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+var morgan = require('morgan')
 
 var app = express()
+app.use(morgan('dev'))
 
 mongoose.connect('mongodb://localhost/smhacks'); 
 

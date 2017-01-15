@@ -6,6 +6,7 @@ var morse = require('morse')
 var secret = require('./secret.js')
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var morgan = require('morgan')
+var giphy = require('giphy-api')();
 
 var app = express()
 app.use(morgan('dev'))
@@ -157,9 +158,12 @@ bot.on('message', function(data){
 // send random meme to group
 app.get('/send_meme', function(req, res){
 	// var groupId = req.param.group
-	Message.findOne({}, { sort: {'created_at': -1}}, function(err, data){
+	Message.findOne({}, {}, { sort: {'createdAt': -1} }, function(err, data){
 		if(err) throw err
-		postMessage(groupId, "meme", function(){
+		giphy.random('meme', function(err, meme) {
+			// console.log(meme)
+			// console.log(meme.image_original_url)
+			bot.postMessage(data.groupId, meme.data.url)
 			res.send("k")
 		})
 	})

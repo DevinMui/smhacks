@@ -107,9 +107,11 @@ app.get('/messages', function(req, res){ // method done
 app.get('/messages/last', function(req, res){ // give last message
 	Message.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, message) {
 		if(err) throw err
-
-		var encoded = morse.encode(message.text);
-		res.json({morse: encoded, text: message.text, groupId: message.groupId, tone: message.tone })
+		message.read = true
+		message.save(function(){
+			var encoded = morse.encode(message.text);
+			res.json({morse: encoded, text: message.text, groupId: message.groupId, tone: message.tone })
+		})
 	});
 })
 

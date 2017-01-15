@@ -201,6 +201,16 @@ app.get('/ngrok', function(req, res){
 	})
 })
 
+app.get('/k', function(req, res){
+	Message.findOne({}, {}, { sort: {'createdAt': -1} }, function(err, data){
+		if(err) throw err
+
+		bot.postMessage(data.groupId, "k")
+		res.send("k")
+
+	})
+})
+
 app.get('/messages/:messageId', function(req, res){
 
 })

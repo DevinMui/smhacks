@@ -150,7 +150,7 @@ app.get('/messages', function(req, res){ // method done
 })
 
 app.get('/messages/last', function(req, res){ // give last message
-	Message.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, message) {
+	Message.findOne({}, {}, { sort: { 'createdAt' : -1 } }, function(err, message) {
 		var read = message.read
 		if(err) throw err
 		message.read = true

@@ -3,12 +3,12 @@ var bodyParser = require("body-parser")
 var Bot = require("slackbots")
 var mongoose = require("mongoose")
 var morse = require('morse')
-var secret = require('secret.js')
+var secret = require('./secret.js')
 // var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
 var app = express()
 
-mongoose.connect('mongodb://localhost/smhacks');
+mongoose.connect('mongodb://localhost/smhacks'); 
 
 // var tone_analyzer = new ToneAnalyzerV3({
 //   username: secret.username,

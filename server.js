@@ -4,17 +4,17 @@ var Bot = require("slackbots")
 var mongoose = require("mongoose")
 var morse = require('morse')
 var secret = require('./secret.js')
-// var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 
 var app = express()
 
 mongoose.connect('mongodb://localhost/smhacks'); 
 
-// var tone_analyzer = new ToneAnalyzerV3({
-//   username: secret.username,
-//   password: secret.password,
-//   version_date: '2016-05-19'
-// });
+var tone_analyzer = new ToneAnalyzerV3({
+  username: secret.username,
+  password: secret.password,
+  version_date: '2016-05-19'
+});
 
 var messagesSchema = mongoose.Schema({
 	groupId: String,
@@ -36,7 +36,7 @@ var Group = mongoose.model('Group', groupsSchema)
 var Message = mongoose.model('Message', messagesSchema);
 
 var settings = {
-    token: 'xoxb-127038972225-1i0ggTtlnbLDfgI1fWZqUmUv',
+    token: secret.token,
     name: 'smart-watch'
 };
 var bot = new Bot(settings);
@@ -53,6 +53,7 @@ bot.on('message', function(data){
 	// 	    	console.log(err);
 	// 	    else
 	// 	      	console.log(JSON.stringify(tone, null, 2));
+	// 	      	tone
 	// });
 	if(data.text){
 		console.log(data)
